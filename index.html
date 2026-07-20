@@ -139,6 +139,7 @@
         <div class="action-btns">
           <button class="action-btn btn-save" onclick="saveTemplates()">💾 Save</button>
           <button class="action-btn btn-load" onclick="loadTemplates()">📂 Load</button>
+          <button class="action-btn" onclick="exportTemplates()" style="background:#e0e7ff;color:#3730a3;">⬇ Export file</button>
           <button class="action-btn btn-clear" onclick="clearTemplates()">🗑 Clear all</button>
         </div>
         <div id="rec-status"></div>
@@ -422,7 +423,18 @@ function loadTemplates() {
     recStatus.textContent = '⚠ No saved data — record signs first';
   }
 }
- 
+
+function exportTemplates() {
+  const total = Object.values(knnData).reduce((s, v) => s + v.length, 0);
+  if (total === 0) { recStatus.textContent = '⚠ Nothing to export'; return; }
+  const blob = new Blob([JSON.stringify(knnData)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'signbuddy-templates.json';
+  a.click();
+  recStatus.textContent = `⬇ Exported ${total} samples — upload this file to GitHub`;
+}
+
 function clearTemplates() {
   if (!confirm('Clear all recorded samples?')) return;
   knnData = {};
@@ -435,7 +447,25 @@ function clearTemplates() {
   recStatus.textContent = '🗑 Cleared all samples';
 }
  
-loadTemplates();  // auto-load on start
+// โหลด templates จาก GitHub อัตโนมัติ
+fetch('signbuddy-templates.json')
+  .then(r => r.json())
+  .then(data => {
+    knnData = data;
+    LABELS.forEach((l, i) => {
+      updateCount(i);
+      if (knnData[l] && knnData[l].length > 0) {
+        const btn = document.getElementById('rec-' + i);
+        btn.classList.add('done'); btn.textContent = '✅ Record more';
+      }
+    });
+    const total = Object.values(knnData).reduce((s, v) => s + v.length, 0);
+    statusBar.textContent = `✅ Templates loaded (${total} samples) — ready to detect`;
+  })
+  .catch(() => {
+    // ถ้าไม่มีไฟล์บน GitHub ให้โหลดจาก localStorage แทน
+    loadTemplates();
+  });
  
 // ── MediaPipe ──────────────────────────────────────────────────
 let lastLabel     = '';
