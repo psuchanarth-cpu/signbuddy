@@ -230,6 +230,11 @@ const handsCount  = document.getElementById('hands-count');
 const recStatus   = document.getElementById('rec-status');
  
 let currentMode = 'a';
+// unlock audio on first interaction
+document.addEventListener('click', () => {
+  const u = new SpeechSynthesisUtterance('');
+  window.speechSynthesis.speak(u);
+}, { once: true });
  
 // ── Switch mode ────────────────────────────────────────────────
 switchBtn.addEventListener('click', () => {
