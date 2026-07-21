@@ -98,54 +98,103 @@
       <button id="setup-toggle" style="margin-top:4px;">⚙ Setup — record sign templates</button>
  
       <div id="record-setup">
-        <h4>📹 Record each sign 2–3 times for best accuracy (5 sec each)</h4>
- 
-        <div class="rec-row">
-          <div>
-            <div class="rec-label">How much?</div>
-            <div class="rec-timer" id="timer-0"><div class="rec-timer-fill" id="timer-fill-0"></div></div>
-          </div>
-          <div class="rec-count" id="count-0">0 samples</div>
-          <button class="rec-btn" id="rec-0" onclick="startRecording('How much?', 0)">⏺ Record</button>
-        </div>
- 
-        <div class="rec-row">
-          <div>
-            <div class="rec-label">Want to get coffee.</div>
-            <div class="rec-timer" id="timer-1"><div class="rec-timer-fill" id="timer-fill-1"></div></div>
-          </div>
-          <div class="rec-count" id="count-1">0 samples</div>
-          <button class="rec-btn" id="rec-1" onclick="startRecording('Want to get coffee.', 1)">⏺ Record</button>
-        </div>
- 
-        <div class="rec-row">
-          <div>
-            <div class="rec-label">How are you?</div>
-            <div class="rec-timer" id="timer-2"><div class="rec-timer-fill" id="timer-fill-2"></div></div>
-          </div>
-          <div class="rec-count" id="count-2">0 samples</div>
-          <button class="rec-btn" id="rec-2" onclick="startRecording('How are you?', 2)">⏺ Record</button>
-        </div>
- 
-        <div class="rec-row">
-          <div>
-            <div class="rec-label">Can you help me?</div>
-            <div class="rec-timer" id="timer-3"><div class="rec-timer-fill" id="timer-fill-3"></div></div>
-          </div>
-          <div class="rec-count" id="count-3">0 samples</div>
-          <button class="rec-btn" id="rec-3" onclick="startRecording('Can you help me?', 3)">⏺ Record</button>
-        </div>
- 
-        <div class="action-btns">
-          <button class="action-btn btn-save" onclick="saveTemplates()">💾 Save</button>
-          <button class="action-btn btn-load" onclick="loadTemplates()">📂 Load</button>
-          <button class="action-btn" onclick="exportTemplates()" style="background:#e0e7ff;color:#3730a3;">⬇ Export file</button>
-          <button class="action-btn btn-clear" onclick="clearTemplates()">🗑 Clear all</button>
-        </div>
-        <div id="rec-status"></div>
-      </div>
-    </div>
+  <h4>📹 Record each sign 2–3 times for best accuracy (5 sec each)</h4>
+
+  <div class="rec-row">
+    <div><div class="rec-label">How much?</div><div class="rec-timer" id="timer-0"><div class="rec-timer-fill" id="timer-fill-0"></div></div></div>
+    <div class="rec-count" id="count-0">0 samples</div>
+    <button class="rec-btn" id="rec-0" onclick="startRecording('How much?', 0)">⏺ Record</button>
   </div>
+  <div class="rec-row">
+    <div><div class="rec-label">Want to get coffee.</div><div class="rec-timer" id="timer-1"><div class="rec-timer-fill" id="timer-fill-1"></div></div></div>
+    <div class="rec-count" id="count-1">0 samples</div>
+    <button class="rec-btn" id="rec-1" onclick="startRecording('Want to get coffee.', 1)">⏺ Record</button>
+  </div>
+  <div class="rec-row">
+    <div><div class="rec-label">How are you?</div><div class="rec-timer" id="timer-2"><div class="rec-timer-fill" id="timer-fill-2"></div></div></div>
+    <div class="rec-count" id="count-2">0 samples</div>
+    <button class="rec-btn" id="rec-2" onclick="startRecording('How are you?', 2)">⏺ Record</button>
+  </div>
+  <div class="rec-row">
+    <div><div class="rec-label">Can you help me?</div><div class="rec-timer" id="timer-3"><div class="rec-timer-fill" id="timer-fill-3"></div></div></div>
+    <div class="rec-count" id="count-3">0 samples</div>
+    <button class="rec-btn" id="rec-3" onclick="startRecording('Can you help me?', 3)">⏺ Record</button>
+  </div>
+  <div class="rec-row">
+    <div><div class="rec-label">Can you understand sign language?</div><div class="rec-timer" id="timer-4"><div class="rec-timer-fill" id="timer-fill-4"></div></div></div>
+    <div class="rec-count" id="count-4">0 samples</div>
+    <button class="rec-btn" id="rec-4" onclick="startRecording('Can you understand sign language?', 4)">⏺ Record</button>
+  </div>
+  <div class="rec-row">
+    <div><div class="rec-label">Sorry</div><div class="rec-timer" id="timer-5"><div class="rec-timer-fill" id="timer-fill-5"></div></div></div>
+    <div class="rec-count" id="count-5">0 samples</div>
+    <button class="rec-btn" id="rec-5" onclick="startRecording('Sorry.', 5)">⏺ Record</button>
+  </div>
+  <div class="rec-row">
+    <div><div class="rec-label">I'm fine</div><div class="rec-timer" id="timer-6"><div class="rec-timer-fill" id="timer-fill-6"></div></div></div>
+    <div class="rec-count" id="count-6">0 samples</div>
+    <button class="rec-btn" id="rec-6" onclick="startRecording('I\'m fine.', 6)">⏺ Record</button>
+  </div>
+  <div class="rec-row">
+    <div><div class="rec-label">Thank you</div><div class="rec-timer" id="timer-7"><div class="rec-timer-fill" id="timer-fill-7"></div></div></div>
+    <div class="rec-count" id="count-7">0 samples</div>
+    <button class="rec-btn" id="rec-7" onclick="startRecording('Thank you.', 7)">⏺ Record</button>
+  </div>
+  <div class="rec-row">
+    <div><div class="rec-label">What time is it?</div><div class="rec-timer" id="timer-8"><div class="rec-timer-fill" id="timer-fill-8"></div></div></div>
+    <div class="rec-count" id="count-8">0 samples</div>
+    <button class="rec-btn" id="rec-8" onclick="startRecording('What time is it?', 8)">⏺ Record</button>
+  </div>
+  <div class="rec-row">
+    <div><div class="rec-label">Please</div><div class="rec-timer" id="timer-9"><div class="rec-timer-fill" id="timer-fill-9"></div></div></div>
+    <div class="rec-count" id="count-9">0 samples</div>
+    <button class="rec-btn" id="rec-9" onclick="startRecording('Please.', 9)">⏺ Record</button>
+  </div>
+  <div class="rec-row">
+    <div><div class="rec-label">Eat food</div><div class="rec-timer" id="timer-10"><div class="rec-timer-fill" id="timer-fill-10"></div></div></div>
+    <div class="rec-count" id="count-10">0 samples</div>
+    <button class="rec-btn" id="rec-10" onclick="startRecording('Eat food.', 10)">⏺ Record</button>
+  </div>
+  <div class="rec-row">
+    <div><div class="rec-label">Nice to meet you</div><div class="rec-timer" id="timer-11"><div class="rec-timer-fill" id="timer-fill-11"></div></div></div>
+    <div class="rec-count" id="count-11">0 samples</div>
+    <button class="rec-btn" id="rec-11" onclick="startRecording('Nice to meet you.', 11)">⏺ Record</button>
+  </div>
+  <div class="rec-row">
+    <div><div class="rec-label">I understand</div><div class="rec-timer" id="timer-12"><div class="rec-timer-fill" id="timer-fill-12"></div></div></div>
+    <div class="rec-count" id="count-12">0 samples</div>
+    <button class="rec-btn" id="rec-12" onclick="startRecording('I understand.', 12)">⏺ Record</button>
+  </div>
+  <div class="rec-row">
+    <div><div class="rec-label">I don't understand</div><div class="rec-timer" id="timer-13"><div class="rec-timer-fill" id="timer-fill-13"></div></div></div>
+    <div class="rec-count" id="count-13">0 samples</div>
+    <button class="rec-btn" id="rec-13" onclick="startRecording('I don\'t understand.', 13)">⏺ Record</button>
+  </div>
+  <div class="rec-row">
+    <div><div class="rec-label">Sign slowly please</div><div class="rec-timer" id="timer-14"><div class="rec-timer-fill" id="timer-fill-14"></div></div></div>
+    <div class="rec-count" id="count-14">0 samples</div>
+    <button class="rec-btn" id="rec-14" onclick="startRecording('Sign slowly please.', 14)">⏺ Record</button>
+  </div>
+  <div class="rec-row">
+    <div><div class="rec-label">Yes</div><div class="rec-timer" id="timer-15"><div class="rec-timer-fill" id="timer-fill-15"></div></div></div>
+    <div class="rec-count" id="count-15">0 samples</div>
+    <button class="rec-btn" id="rec-15" onclick="startRecording('Yes.', 15)">⏺ Record</button>
+  </div>
+  <div class="rec-row">
+    <div><div class="rec-label">No</div><div class="rec-timer" id="timer-16"><div class="rec-timer-fill" id="timer-fill-16"></div></div></div>
+    <div class="rec-count" id="count-16">0 samples</div>
+    <button class="rec-btn" id="rec-16" onclick="startRecording('No.', 16)">⏺ Record</button>
+  </div>
+
+  <div class="action-btns">
+    <button class="action-btn btn-save" onclick="saveTemplates()">💾 Save</button>
+    <button class="action-btn btn-load" onclick="loadTemplates()">📂 Load</button>
+    <button class="action-btn btn-clear" onclick="clearTemplates()">🗑 Clear all</button>
+  </div>
+  <div id="rec-status"></div>
+</div>
+</div>
+</div>
  
   <div class="divider"></div>
  
@@ -210,6 +259,81 @@ const phraseMap = {
   "please help":           "videos/can-you-help.mp4",
   "assist me":             "videos/can-you-help.mp4",
   "need help":             "videos/can-you-help.mp4"
+
+  // Can you understand sign language?
+  "can you understand sign language": "videos/understand-sign.mp4",
+  "do you know sign language": "videos/understand-sign.mp4",
+  "do you understand sign language": "videos/understand-sign.mp4",
+
+// Sorry
+  "sorry": "videos/sorry.mp4",
+  "i'm sorry": "videos/sorry.mp4",
+  "i am sorry": "videos/sorry.mp4",
+  "excuse me": "videos/sorry.mp4",
+  "my apologies": "videos/sorry.mp4",
+
+// I'm fine
+  "i'm fine": "videos/im-fine.mp4",
+  "i am fine": "videos/im-fine.mp4",
+  "i'm doing well": "videos/im-fine.mp4",
+  "i'm good": "videos/im-fine.mp4",
+
+// Thank you
+  "thank you": "videos/thank-you.mp4",
+  "thanks": "videos/thank-you.mp4",
+  "thank you so much": "videos/thank-you.mp4",
+
+// What time is it?
+  "what time is it": "videos/what-time.mp4",
+  "do you know the time": "videos/what-time.mp4",
+  "what's the time": "videos/what-time.mp4",
+
+// Please
+  "please": "videos/please.mp4",
+  "could you please": "videos/please.mp4",
+
+// Eat food
+  "eat food": "videos/eat-food.mp4",
+  "let's eat": "videos/eat-food.mp4",
+  "i want to eat": "videos/eat-food.mp4",
+  "are you hungry": "videos/eat-food.mp4",
+  "time to eat": "videos/eat-food.mp4",
+
+// Nice to meet you
+  "nice to meet you": "videos/nice-to-meet.mp4",
+  "pleased to meet you": "videos/nice-to-meet.mp4",
+  "great to meet you": "videos/nice-to-meet.mp4",
+
+// I understand
+  "i understand": "videos/i-understand.mp4",
+  "i got it": "videos/i-understand.mp4",
+  "understood": "videos/i-understand.mp4",
+  "i see": "videos/i-understand.mp4",
+
+// I don't understand
+  "i don't understand": "videos/dont-understand.mp4",
+  "i do not understand": "videos/dont-understand.mp4",
+  "i'm confused": "videos/dont-understand.mp4",
+  "i don't get it": "videos/dont-understand.mp4",
+  "what do you mean": "videos/dont-understand.mp4",
+
+// Sign slowly please
+  "sign slowly please": "videos/sign-slowly.mp4",
+  "please sign slower": "videos/sign-slowly.mp4",
+  "can you sign slower": "videos/sign-slowly.mp4",
+  "slow down please": "videos/sign-slowly.mp4",
+
+// Yes
+  "yes": "videos/yes.mp4",
+  "yeah": "videos/yes.mp4",
+  "correct": "videos/yes.mp4",
+  "that's right": "videos/yes.mp4",
+
+// No
+  "no": "videos/no.mp4",
+  "nope": "videos/no.mp4",
+  "that's wrong": "videos/no.mp4",
+  "incorrect": "videos/no.mp4",
 };
  
 // ── Elements ───────────────────────────────────────────────────
@@ -302,7 +426,12 @@ let knnData     = {};
 let isRecording = false;
 let recBuffer   = [];
 const K         = 5;   // vote from 5 nearest neighbors
-const LABELS    = ['How much?', 'Want to get coffee.', 'How are you?', 'Can you help me.'];
+const LABELS = [
+  'How much?', 'Want to get coffee.', 'How are you?', 'Can you help me?',
+  'Can you understand sign language?', 'Sorry.', "I'm fine.", 'Thank you.',
+  'What time is it?', 'Please.', 'Eat food.', 'Nice to meet you.',
+  'I understand.', "I don't understand.", 'Sign slowly please.', 'Yes.', 'No.'
+];
  
 function flattenBothHands(multiLandmarks) {
   const empty = new Array(42).fill(0);
