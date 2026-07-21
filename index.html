@@ -376,7 +376,7 @@ function startRecording(label, idx) {
   timerEl.style.display = 'block';
   recStatus.textContent = 'Recording "' + label + '" — hold sign steady for 5 seconds...';
   statusBar.textContent = 'Recording "' + label + '"...';
-  var DURATION = 5000;
+  var DURATION = 10000;
   var start = Date.now();
   recInterval = setInterval(function() {
     timerFill.style.width = Math.min(100, ((Date.now()-start)/DURATION)*100) + '%';
