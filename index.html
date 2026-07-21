@@ -402,9 +402,9 @@ function startRecording(label, idx) {
 }
  
 function saveTemplates() {
+  var keys = Object.keys(knnData);
+  if (keys.length === 0) { recStatus.textContent = 'Nothing recorded yet'; return; }
   var total = Object.values(knnData).reduce(function(s,v){ return s+v.length; }, 0);
-  if (total === 0) { recStatus.textContent = 'Nothing recorded yet'; return; }
-  localStorage.setItem('signbuddy_knn', JSON.stringify(knnData));
   recStatus.textContent = 'Saved ' + total + ' samples across ' + Object.keys(knnData).length + ' signs';
 }
  
