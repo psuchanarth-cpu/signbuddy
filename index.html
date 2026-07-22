@@ -494,7 +494,11 @@ fetch('https://psuchanarth-cpu.github.io/signbuddy/signbuddy-templates.json')
     var total = Object.values(knnData).reduce(function(s,v){ return s+v.length; }, 0);
     statusBar.textContent = 'Templates loaded (' + total + ' samples) — ready';
   })
-  .catch(function(){ loadTemplates(); });
+  .catch(function(e){ 
+  statusBar.textContent = 'fetch failed: ' + e;
+  loadTemplates(); 
+  });
+
  
 function onHandResults(results) {
   canvasEl.width  = webcamEl.videoWidth  || 640;
