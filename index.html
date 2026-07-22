@@ -339,14 +339,9 @@ if (SR) {
     .then(function() { createRec(); statusBar.textContent = 'Ready'; })
     .catch(function(e) { micBtn.disabled = true; statusBar.textContent = 'Mic permission denied'; });
 
-    micBtn.addEventListener('click', function() {
-    if (isListening) {
-      rec.stop();
-      resetMic();
-      micBtn.disabled = true;
-      setTimeout(function(){ micBtn.disabled = false; }, 1000);
-      return;
-    }
+     micBtn.addEventListener('click', function() {
+    if (isListening) { rec.stop(); resetMic(); return; }
+
     createRec();
     setTimeout(function() {
       try {
