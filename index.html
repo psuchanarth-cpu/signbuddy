@@ -315,12 +315,25 @@ setupToggle.addEventListener('click', () => {
 const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
 if (SR) {
   const rec = new SR();
-  rec.lang = 'en-US'; rec.interimResults = false; rec.continuous = false;
-  micBtn.addEventListener('click', () => {
+rec.lang = 'en-US'; rec.interimResults = false; rec.continuous = false;
+let isListening = false;
+micBtn.addEventListener('click', () => {
+  if (isListening) {
+    rec.stop();
+    isListening = false;
+    micBtn.classList.remove('listening'); micBtn.textContent = '🎤';
+    statusBar.textContent = 'Stopped listening';
+    return;
+  }
+  try {
     rec.start();
+    isListening = true;
     micBtn.classList.add('listening'); micBtn.textContent = '⏹';
     speechText.textContent = 'Listening...'; speechText.className = '';
     statusBar.textContent = 'Listening...';
+  } catch(e) {
+    statusBar.textContent = 'Mic error: ' + e.message;
+  }
   });
   rec.onresult = (e) => {
     const said = e.results[0][0].transcript.toLowerCase().trim();
@@ -337,7 +350,10 @@ if (SR) {
     if (!matched) statusBar.textContent = 'Not recognized. Try: "I need help" or "How are you?"';
   };
   rec.onerror = () => { micBtn.classList.remove('listening'); micBtn.textContent = '🎤'; statusBar.textContent = 'Mic error — check browser permissions'; };
-  rec.onend   = () => { micBtn.classList.remove('listening'); micBtn.textContent = '🎤'; };
+  rec.onend = () => {
+  isListening = false;
+  micBtn.classList.remove('listening'); micBtn.textContent = '🎤';
+};
 } else {
   micBtn.disabled = true; statusBar.textContent = 'Use Chrome for speech recognition';
 }
