@@ -313,17 +313,19 @@ if (SR) {
       speechText.textContent = '"' + e.results[0][0].transcript + '"';
       resetMic();
       var matched = false;
-      for (var key in phraseMap) {
-        if (said.includes(key)) {
-          videoPh.style.display = 'none';
-          signVideo.style.display = 'block';
-          clearBtn.style.display = 'inline-block';
-          replayBtn.style.display = 'inline-block';
-          signVideo.src = phraseMap[key]; signVideo.load(); signVideo.play();
-          statusBar.textContent = 'Matched: ' + key; matched = true; break;
-        }
+    var sortedKeys = Object.keys(phraseMap).sort(function(a,b){ return b.length - a.length; });
+    for (var i = 0; i < sortedKeys.length; i++) {
+      var key = sortedKeys[i];
+      if (said === key || said.includes(key)) {
+        videoPh.style.display = 'none';
+        signVideo.style.display = 'block';
+        clearBtn.style.display = 'inline-block';
+        replayBtn.style.display = 'inline-block';
+        signVideo.src = phraseMap[key]; signVideo.load(); signVideo.play();
+        statusBar.textContent = 'Matched: ' + key; matched = true; break;
       }
-      if (!matched) statusBar.textContent = 'Not recognized. Try again.';
+    }
+    if (!matched) statusBar.textContent = 'Not recognized. Try again.';
     };
     rec.onerror = function(e) {
       statusBar.textContent = 'Mic error: ' + e.error + ' — tap mic to try again';
