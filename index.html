@@ -480,7 +480,7 @@ function clearResult() {
   statusBar.textContent = 'Cleared — show your next sign';
 }
  
-fetch('signbuddy-templates.json')
+fetch('https://psuchanarth-cpu.github.io/signbuddy/signbuddy-templates.json')
   .then(function(r){ return r.json(); })
   .then(function(data) {
     knnData = data;
