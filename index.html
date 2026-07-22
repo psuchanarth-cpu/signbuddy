@@ -52,7 +52,7 @@
     .rec-btn.done { background: #dcfce7 !important; border-color: #86efac !important; color: #166534 !important; }
     .rec-timer { height: 3px; background: #e9edf8; border-radius: 2px; overflow: hidden; margin-top: 2px; display: none; }
     .rec-timer-fill { height: 100%; background: #dc2626; width: 0%; border-radius: 2px; }
-    .action-btns { display: flex; gap: 8px; margin-top: 10px; }
+    .action-btns { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
     .action-btn { font-size: 12px; padding: 7px 14px; border-radius: 6px; cursor: pointer; border: none; font-weight: 500; }
     .btn-save { background: #dcfce7; color: #166534; }
     .btn-load { background: #dbeafe; color: #1e40af; }
@@ -60,24 +60,25 @@
     .btn-export { background: #e0e7ff; color: #3730a3; }
     #setup-toggle { font-size: 12px; color: #9ca3af; background: none; border: none; cursor: pointer; text-decoration: underline; }
     #rec-status { font-size: 11px; color: #92400e; margin-top: 8px; min-height: 16px; }
+    .video-action-btns { margin-top: 8px; display: flex; gap: 8px; }
   </style>
 </head>
 <body>
- 
+
 <header>
   <div class="logo">Sign<span>Buddy</span></div>
   <div class="tagline">Real-time ASL ↔ Speech Translator</div>
 </header>
- 
+
 <div class="mode-bar">
   <div class="mode-label blue" id="label-left">🎤 You speak</div>
   <button id="switch-btn">⇄</button>
   <div class="mode-label green" id="label-right">🤟 Sign video plays</div>
 </div>
- 
+
 <div class="translator">
+  <!-- LEFT PANEL -->
   <div class="panel">
- 
     <div id="mode-a-left">
       <div class="panel-label">INPUT — Speak a phrase</div>
       <div id="speech-text" class="ph" style="margin-top:12px;">Press the mic and speak...</div>
@@ -86,7 +87,7 @@
         <div class="mic-hint">Tap to speak</div>
       </div>
     </div>
- 
+
     <div id="mode-b-left" style="display:none;">
       <div class="panel-label">INPUT — Show your sign</div>
       <div class="webcam-wrap" style="margin-top:12px;">
@@ -96,63 +97,48 @@
       </div>
       <button id="setup-toggle" style="margin-top:4px;">⚙ Setup — record sign templates</button>
       <div id="record-setup">
-        <h4>📹 Record each sign 2–3 times for best accuracy (5 sec each)</h4>
-        <div class="rec-row"><div><div class="rec-label">How much?</div><div class="rec-timer" id="timer-0"><div class="rec-timer-fill" id="timer-fill-0"></div></div></div><div class="rec-count" id="count-0">0 samples</div><button class="rec-btn" id="rec-0" onclick="startRecording('How much?',0)">⏺ Record</button>
-        <button class="rec-btn" onclick="deleteLabel('How much?',0)" style="border-color:#fca5a5;color:#991b1b;">🗑</button></div>
-        <div class="rec-row"><div><div class="rec-label">Want to get coffee.</div><div class="rec-timer" id="timer-1"><div class="rec-timer-fill" id="timer-fill-1"></div></div></div><div class="rec-count" id="count-1">0 samples</div><button class="rec-btn" id="rec-1" onclick="startRecording('Want to get coffee.',1)">⏺ Record</button>
-        <button class="rec-btn" onclick="deleteLabel('Want to get coffee.',1)" style="border-color:#fca5a5;color:#991b1b;">🗑</button></div>
-        <div class="rec-row"><div><div class="rec-label">How are you?</div><div class="rec-timer" id="timer-2"><div class="rec-timer-fill" id="timer-fill-2"></div></div></div><div class="rec-count" id="count-2">0 samples</div><button class="rec-btn" id="rec-2" onclick="startRecording('How are you?',2)">⏺ Record</button>
-        <button class="rec-btn" onclick="deleteLabel('How are you?',2)" style="border-color:#fca5a5;color:#991b1b;">🗑</button></div>
-        <div class="rec-row"><div><div class="rec-label">Can you help me?</div><div class="rec-timer" id="timer-3"><div class="rec-timer-fill" id="timer-fill-3"></div></div></div><div class="rec-count" id="count-3">0 samples</div><button class="rec-btn" id="rec-3" onclick="startRecording('Can you help me?',3)">⏺ Record</button>
-        <button class="rec-btn" onclick="deleteLabel('Can you help me?',3)" style="border-color:#fca5a5;color:#991b1b;">🗑</button></div>
-        <div class="rec-row"><div><div class="rec-label">Can you understand sign language?</div><div class="rec-timer" id="timer-4"><div class="rec-timer-fill" id="timer-fill-4"></div></div></div><div class="rec-count" id="count-4">0 samples</div><button class="rec-btn" id="rec-4" onclick="startRecording('Can you understand sign language?',4)">⏺ Record</button>
-        <button class="rec-btn" onclick="deleteLabel('Can you understand sign language?',4)" style="border-color:#fca5a5;color:#991b1b;">🗑</button></div>
-        <div class="rec-row"><div><div class="rec-label">Sorry.</div><div class="rec-timer" id="timer-5"><div class="rec-timer-fill" id="timer-fill-5"></div></div></div><div class="rec-count" id="count-5">0 samples</div><button class="rec-btn" id="rec-5" onclick="startRecording('Sorry.',5)">⏺ Record</button>
-        <button class="rec-btn" onclick="deleteLabel('Sorry.',5)" style="border-color:#fca5a5;color:#991b1b;">🗑</button></div>
-        <div class="rec-row"><div><div class="rec-label">I am fine.</div><div class="rec-timer" id="timer-6"><div class="rec-timer-fill" id="timer-fill-6"></div></div></div><div class="rec-count" id="count-6">0 samples</div><button class="rec-btn" id="rec-6" onclick="startRecording('I am fine.',6)">⏺ Record</button>
-        <button class="rec-btn" onclick="deleteLabel('I am fine.',6)" style="border-color:#fca5a5;color:#991b1b;">🗑</button></div>
-        <div class="rec-row"><div><div class="rec-label">Thank you.</div><div class="rec-timer" id="timer-7"><div class="rec-timer-fill" id="timer-fill-7"></div></div></div><div class="rec-count" id="count-7">0 samples</div><button class="rec-btn" id="rec-7" onclick="startRecording('Thank you.',7)">⏺ Record</button>
-        <button class="rec-btn" onclick="deleteLabel('Thank you.',7)" style="border-color:#fca5a5;color:#991b1b;">🗑</button></div>
-        <div class="rec-row"><div><div class="rec-label">What time is it?</div><div class="rec-timer" id="timer-8"><div class="rec-timer-fill" id="timer-fill-8"></div></div></div><div class="rec-count" id="count-8">0 samples</div><button class="rec-btn" id="rec-8" onclick="startRecording('What time is it?',8)">⏺ Record</button>
-        <button class="rec-btn" onclick="deleteLabel('What time is it?',8)" style="border-color:#fca5a5;color:#991b1b;">🗑</button></div>
-        <div class="rec-row"><div><div class="rec-label">Please.</div><div class="rec-timer" id="timer-9"><div class="rec-timer-fill" id="timer-fill-9"></div></div></div><div class="rec-count" id="count-9">0 samples</div><button class="rec-btn" id="rec-9" onclick="startRecording('Please.',9)">⏺ Record</button>
-        <button class="rec-btn" onclick="deleteLabel('Please.',9)" style="border-color:#fca5a5;color:#991b1b;">🗑</button></div>
-        <div class="rec-row"><div><div class="rec-label">Eat food.</div><div class="rec-timer" id="timer-10"><div class="rec-timer-fill" id="timer-fill-10"></div></div></div><div class="rec-count" id="count-10">0 samples</div><button class="rec-btn" id="rec-10" onclick="startRecording('Eat food.',10)">⏺ Record</button>
-        <button class="rec-btn" onclick="deleteLabel('Eat food.',10)" style="border-color:#fca5a5;color:#991b1b;">🗑</button></div>
-        <div class="rec-row"><div><div class="rec-label">Nice to meet you.</div><div class="rec-timer" id="timer-11"><div class="rec-timer-fill" id="timer-fill-11"></div></div></div><div class="rec-count" id="count-11">0 samples</div><button class="rec-btn" id="rec-11" onclick="startRecording('Nice to meet you.',11)">⏺ Record</button>
-        <button class="rec-btn" onclick="deleteLabel('Nice to meet you.',11)" style="border-color:#fca5a5;color:#991b1b;">🗑</button></div>
-        <div class="rec-row"><div><div class="rec-label">I understand.</div><div class="rec-timer" id="timer-12"><div class="rec-timer-fill" id="timer-fill-12"></div></div></div><div class="rec-count" id="count-12">0 samples</div><button class="rec-btn" id="rec-12" onclick="startRecording('I understand.',12)">⏺ Record</button>
-        <button class="rec-btn" onclick="deleteLabel('I understand.',12)" style="border-color:#fca5a5;color:#991b1b;">🗑</button></div>
-        <div class="rec-row"><div><div class="rec-label">I do not understand.</div><div class="rec-timer" id="timer-13"><div class="rec-timer-fill" id="timer-fill-13"></div></div></div><div class="rec-count" id="count-13">0 samples</div><button class="rec-btn" id="rec-13" onclick="startRecording('I do not understand.',13)">⏺ Record</button>
-        <button class="rec-btn" onclick="deleteLabel('I do not understand.',13)" style="border-color:#fca5a5;color:#991b1b;">🗑</button></div>
-        <div class="rec-row"><div><div class="rec-label">Sign slowly please.</div><div class="rec-timer" id="timer-14"><div class="rec-timer-fill" id="timer-fill-14"></div></div></div><div class="rec-count" id="count-14">0 samples</div><button class="rec-btn" id="rec-14" onclick="startRecording('Sign slowly please.',14)">⏺ Record</button>
-        <button class="rec-btn" onclick="deleteLabel('Sign slowly please.',14)" style="border-color:#fca5a5;color:#991b1b;">🗑</button></div>
-        <div class="rec-row"><div><div class="rec-label">Yes.</div><div class="rec-timer" id="timer-15"><div class="rec-timer-fill" id="timer-fill-15"></div></div></div><div class="rec-count" id="count-15">0 samples</div><button class="rec-btn" id="rec-15" onclick="startRecording('Yes.',15)">⏺ Record</button>
-        <button class="rec-btn" onclick="deleteLabel('Yes.',15)" style="border-color:#fca5a5;color:#991b1b;">🗑</button></div>
-        <div class="rec-row"><div><div class="rec-label">No.</div><div class="rec-timer" id="timer-16"><div class="rec-timer-fill" id="timer-fill-16"></div></div></div><div class="rec-count" id="count-16">0 samples</div><button class="rec-btn" id="rec-16" onclick="startRecording('No.',16)">⏺ Record</button>
-        <button class="rec-btn" onclick="deleteLabel('No.',16)" style="border-color:#fca5a5;color:#991b1b;">🗑</button></div>
+        <h4>📹 Record each sign 2–3 times for best accuracy (10 sec each)</h4>
+        <div class="rec-row"><div><div class="rec-label">How much?</div><div class="rec-timer" id="timer-0"><div class="rec-timer-fill" id="timer-fill-0"></div></div></div><div class="rec-count" id="count-0">0 samples</div><button class="rec-btn" id="rec-0" onclick="startRecording('How much?',0)">⏺ Record</button><button class="rec-btn" onclick="deleteLabel('How much?',0)" style="border-color:#fca5a5;color:#991b1b;">🗑</button></div>
+        <div class="rec-row"><div><div class="rec-label">Want to get coffee.</div><div class="rec-timer" id="timer-1"><div class="rec-timer-fill" id="timer-fill-1"></div></div></div><div class="rec-count" id="count-1">0 samples</div><button class="rec-btn" id="rec-1" onclick="startRecording('Want to get coffee.',1)">⏺ Record</button><button class="rec-btn" onclick="deleteLabel('Want to get coffee.',1)" style="border-color:#fca5a5;color:#991b1b;">🗑</button></div>
+        <div class="rec-row"><div><div class="rec-label">How are you?</div><div class="rec-timer" id="timer-2"><div class="rec-timer-fill" id="timer-fill-2"></div></div></div><div class="rec-count" id="count-2">0 samples</div><button class="rec-btn" id="rec-2" onclick="startRecording('How are you?',2)">⏺ Record</button><button class="rec-btn" onclick="deleteLabel('How are you?',2)" style="border-color:#fca5a5;color:#991b1b;">🗑</button></div>
+        <div class="rec-row"><div><div class="rec-label">Can you help me?</div><div class="rec-timer" id="timer-3"><div class="rec-timer-fill" id="timer-fill-3"></div></div></div><div class="rec-count" id="count-3">0 samples</div><button class="rec-btn" id="rec-3" onclick="startRecording('Can you help me?',3)">⏺ Record</button><button class="rec-btn" onclick="deleteLabel('Can you help me?',3)" style="border-color:#fca5a5;color:#991b1b;">🗑</button></div>
+        <div class="rec-row"><div><div class="rec-label">Can you understand sign language?</div><div class="rec-timer" id="timer-4"><div class="rec-timer-fill" id="timer-fill-4"></div></div></div><div class="rec-count" id="count-4">0 samples</div><button class="rec-btn" id="rec-4" onclick="startRecording('Can you understand sign language?',4)">⏺ Record</button><button class="rec-btn" onclick="deleteLabel('Can you understand sign language?',4)" style="border-color:#fca5a5;color:#991b1b;">🗑</button></div>
+        <div class="rec-row"><div><div class="rec-label">Sorry.</div><div class="rec-timer" id="timer-5"><div class="rec-timer-fill" id="timer-fill-5"></div></div></div><div class="rec-count" id="count-5">0 samples</div><button class="rec-btn" id="rec-5" onclick="startRecording('Sorry.',5)">⏺ Record</button><button class="rec-btn" onclick="deleteLabel('Sorry.',5)" style="border-color:#fca5a5;color:#991b1b;">🗑</button></div>
+        <div class="rec-row"><div><div class="rec-label">I am fine.</div><div class="rec-timer" id="timer-6"><div class="rec-timer-fill" id="timer-fill-6"></div></div></div><div class="rec-count" id="count-6">0 samples</div><button class="rec-btn" id="rec-6" onclick="startRecording('I am fine.',6)">⏺ Record</button><button class="rec-btn" onclick="deleteLabel('I am fine.',6)" style="border-color:#fca5a5;color:#991b1b;">🗑</button></div>
+        <div class="rec-row"><div><div class="rec-label">Thank you.</div><div class="rec-timer" id="timer-7"><div class="rec-timer-fill" id="timer-fill-7"></div></div></div><div class="rec-count" id="count-7">0 samples</div><button class="rec-btn" id="rec-7" onclick="startRecording('Thank you.',7)">⏺ Record</button><button class="rec-btn" onclick="deleteLabel('Thank you.',7)" style="border-color:#fca5a5;color:#991b1b;">🗑</button></div>
+        <div class="rec-row"><div><div class="rec-label">What time is it?</div><div class="rec-timer" id="timer-8"><div class="rec-timer-fill" id="timer-fill-8"></div></div></div><div class="rec-count" id="count-8">0 samples</div><button class="rec-btn" id="rec-8" onclick="startRecording('What time is it?',8)">⏺ Record</button><button class="rec-btn" onclick="deleteLabel('What time is it?',8)" style="border-color:#fca5a5;color:#991b1b;">🗑</button></div>
+        <div class="rec-row"><div><div class="rec-label">Please.</div><div class="rec-timer" id="timer-9"><div class="rec-timer-fill" id="timer-fill-9"></div></div></div><div class="rec-count" id="count-9">0 samples</div><button class="rec-btn" id="rec-9" onclick="startRecording('Please.',9)">⏺ Record</button><button class="rec-btn" onclick="deleteLabel('Please.',9)" style="border-color:#fca5a5;color:#991b1b;">🗑</button></div>
+        <div class="rec-row"><div><div class="rec-label">Eat food.</div><div class="rec-timer" id="timer-10"><div class="rec-timer-fill" id="timer-fill-10"></div></div></div><div class="rec-count" id="count-10">0 samples</div><button class="rec-btn" id="rec-10" onclick="startRecording('Eat food.',10)">⏺ Record</button><button class="rec-btn" onclick="deleteLabel('Eat food.',10)" style="border-color:#fca5a5;color:#991b1b;">🗑</button></div>
+        <div class="rec-row"><div><div class="rec-label">Nice to meet you.</div><div class="rec-timer" id="timer-11"><div class="rec-timer-fill" id="timer-fill-11"></div></div></div><div class="rec-count" id="count-11">0 samples</div><button class="rec-btn" id="rec-11" onclick="startRecording('Nice to meet you.',11)">⏺ Record</button><button class="rec-btn" onclick="deleteLabel('Nice to meet you.',11)" style="border-color:#fca5a5;color:#991b1b;">🗑</button></div>
+        <div class="rec-row"><div><div class="rec-label">I understand.</div><div class="rec-timer" id="timer-12"><div class="rec-timer-fill" id="timer-fill-12"></div></div></div><div class="rec-count" id="count-12">0 samples</div><button class="rec-btn" id="rec-12" onclick="startRecording('I understand.',12)">⏺ Record</button><button class="rec-btn" onclick="deleteLabel('I understand.',12)" style="border-color:#fca5a5;color:#991b1b;">🗑</button></div>
+        <div class="rec-row"><div><div class="rec-label">Sign slowly please.</div><div class="rec-timer" id="timer-13"><div class="rec-timer-fill" id="timer-fill-13"></div></div></div><div class="rec-count" id="count-13">0 samples</div><button class="rec-btn" id="rec-13" onclick="startRecording('Sign slowly please.',13)">⏺ Record</button><button class="rec-btn" onclick="deleteLabel('Sign slowly please.',13)" style="border-color:#fca5a5;color:#991b1b;">🗑</button></div>
+        <div class="rec-row"><div><div class="rec-label">Yes.</div><div class="rec-timer" id="timer-14"><div class="rec-timer-fill" id="timer-fill-14"></div></div></div><div class="rec-count" id="count-14">0 samples</div><button class="rec-btn" id="rec-14" onclick="startRecording('Yes.',14)">⏺ Record</button><button class="rec-btn" onclick="deleteLabel('Yes.',14)" style="border-color:#fca5a5;color:#991b1b;">🗑</button></div>
+        <div class="rec-row"><div><div class="rec-label">No.</div><div class="rec-timer" id="timer-15"><div class="rec-timer-fill" id="timer-fill-15"></div></div></div><div class="rec-count" id="count-15">0 samples</div><button class="rec-btn" id="rec-15" onclick="startRecording('No.',15)">⏺ Record</button><button class="rec-btn" onclick="deleteLabel('No.',15)" style="border-color:#fca5a5;color:#991b1b;">🗑</button></div>
         <div class="action-btns">
           <button class="action-btn btn-save" onclick="saveTemplates()">💾 Save</button>
           <button class="action-btn btn-load" onclick="loadTemplates()">📂 Load</button>
-          <button class="action-btn btn-export" onclick="exportTemplates()">⬇ Export file</button>
+          <button class="action-btn btn-export" onclick="exportTemplates()">⬇ Export</button>
           <button class="action-btn btn-clear" onclick="clearTemplates()">🗑 Clear all</button>
         </div>
         <div id="rec-status"></div>
       </div>
     </div>
   </div>
- 
+
   <div class="divider"></div>
- 
+
+  <!-- RIGHT PANEL -->
   <div class="panel">
     <div id="mode-a-right">
       <div class="panel-label">OUTPUT — Sign language video</div>
       <div class="video-ph" id="video-ph" style="margin-top:12px;"><span>🤟</span>Sign video will appear here</div>
       <video id="sign-video" playsinline></video>
-      <div style="margin-top:8px; display:flex; gap:8px;">
+      <div class="video-action-btns">
         <button id="replay-btn" onclick="signVideo.play()" style="display:none; padding:8px 16px; border-radius:8px; border:1px solid #93c5fd; background:#eff6ff; color:#1d4ed8; cursor:pointer; font-size:13px;">▶ Replay</button>
         <button id="clear-btn" onclick="clearSpeech()" style="display:none; padding:8px 16px; border-radius:8px; border:1px solid #e4e8f0; background:white; color:#6b7280; cursor:pointer; font-size:13px;">✕ Clear</button>
+      </div>
     </div>
+
     <div id="mode-b-right" style="display:none;">
       <div class="panel-label">OUTPUT — Translated phrase</div>
       <div id="sign-text" class="ph">Waiting for sign...</div>
@@ -161,59 +147,44 @@
     </div>
   </div>
 </div>
- 
+
 <div id="status-bar">Ready</div>
- 
+
 <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
- 
+
 <script>
 const phraseMap = {
-  // How much?
-  "how much":              "videos/how-much.mp4",
-  "how much is this":      "videos/how-much.mp4",
+  "how much": "videos/how-much.mp4",
+  "how much is this": "videos/how-much.mp4",
   "how much does it cost": "videos/how-much.mp4",
-  "what is the price":     "videos/how-much.mp4",
-  "what's the price":      "videos/how-much.mp4",
-  "how much is it":        "videos/how-much.mp4",
-
-  // Want to get coffee
-  "want to get coffee":    "videos/want-coffee.mp4",
-  "want coffee":           "videos/want-coffee.mp4",
-  "coffee":                "videos/want-coffee.mp4",
-  "can i get a coffee":    "videos/want-coffee.mp4",
-  "i want coffee":         "videos/want-coffee.mp4",
-  "let's get coffee":      "videos/want-coffee.mp4",
-  "get coffee":            "videos/want-coffee.mp4",
-
-  // How are you?
-  "how are you":           "videos/how-are-you.mp4",
-  "how are you doing":     "videos/how-are-you.mp4",
-  "how do you do":         "videos/how-are-you.mp4",
-  "how have you been":     "videos/how-are-you.mp4",
-  "how's it going":        "videos/how-are-you.mp4",
-  "how are things":        "videos/how-are-you.mp4",
-
-  // Can you help me?
-  "can you help me":       "videos/can-you-help.mp4",
-  "help me":               "videos/can-you-help.mp4",
-  "could you help":        "videos/can-you-help.mp4",
-  "i need help":           "videos/can-you-help.mp4",
-  "i need assistance":     "videos/can-you-help.mp4",
-  "please help":           "videos/can-you-help.mp4",
-  "assist me":             "videos/can-you-help.mp4",
-  "need help":             "videos/can-you-help.mp4",
+  "what is the price": "videos/how-much.mp4",
+  "how much is it": "videos/how-much.mp4",
+  "want to get coffee": "videos/want-coffee.mp4",
+  "want coffee": "videos/want-coffee.mp4",
+  "coffee": "videos/want-coffee.mp4",
+  "i want coffee": "videos/want-coffee.mp4",
+  "let's get coffee": "videos/want-coffee.mp4",
+  "get coffee": "videos/want-coffee.mp4",
+  "how are you": "videos/how-are-you.mp4",
+  "how are you doing": "videos/how-are-you.mp4",
+  "how have you been": "videos/how-are-you.mp4",
+  "how's it going": "videos/how-are-you.mp4",
+  "can you help me": "videos/can-you-help.mp4",
+  "help me": "videos/can-you-help.mp4",
+  "i need help": "videos/can-you-help.mp4",
+  "please help": "videos/can-you-help.mp4",
+  "need help": "videos/can-you-help.mp4",
   "can you understand sign language": "videos/understand-sign.mp4",
   "do you know sign language": "videos/understand-sign.mp4",
   "do you understand sign language": "videos/understand-sign.mp4",
   "sorry": "videos/sorry.mp4",
-  "i'm sorry": "videos/sorry.mp4",
   "i am sorry": "videos/sorry.mp4",
   "excuse me": "videos/sorry.mp4",
   "my apologies": "videos/sorry.mp4",
-  "i'm fine": "videos/im-fine.mp4",
   "i am fine": "videos/im-fine.mp4",
+  "i'm fine": "videos/im-fine.mp4",
   "i'm doing well": "videos/im-fine.mp4",
   "i'm good": "videos/im-fine.mp4",
   "thank you": "videos/thank-you.mp4",
@@ -221,14 +192,11 @@ const phraseMap = {
   "thank you so much": "videos/thank-you.mp4",
   "what time is it": "videos/what-time.mp4",
   "do you know the time": "videos/what-time.mp4",
-  "what's the time": "videos/what-time.mp4",
   "please": "videos/please.mp4",
-  "could you please": "videos/please.mp4",
   "eat food": "videos/eat-food.mp4",
   "let's eat": "videos/eat-food.mp4",
   "i want to eat": "videos/eat-food.mp4",
   "are you hungry": "videos/eat-food.mp4",
-  "time to eat": "videos/eat-food.mp4",
   "nice to meet you": "videos/nice-to-meet.mp4",
   "pleased to meet you": "videos/nice-to-meet.mp4",
   "great to meet you": "videos/nice-to-meet.mp4",
@@ -238,23 +206,20 @@ const phraseMap = {
   "sign slowly please": "videos/sign-slowly.mp4",
   "please sign slower": "videos/sign-slowly.mp4",
   "can you sign slower": "videos/sign-slowly.mp4",
-  "slow down please": "videos/sign-slowly.mp4",
   "yes": "videos/yes.mp4",
   "yeah": "videos/yes.mp4",
   "correct": "videos/yes.mp4",
-  "that's right": "videos/yes.mp4",
   "no": "videos/no.mp4",
-  "nope": "videos/no.mp4",
-  "that's wrong": "videos/no.mp4"
+  "nope": "videos/no.mp4"
 };
- 
+
 const LABELS = [
   'How much?', 'Want to get coffee.', 'How are you?', 'Can you help me?',
   'Can you understand sign language?', 'Sorry.', 'I am fine.', 'Thank you.',
   'What time is it?', 'Please.', 'Eat food.', 'Nice to meet you.',
-  'I understand.', 'I do not understand.', 'Sign slowly please.', 'Yes.', 'No.'
+  'I understand.', 'Sign slowly please.', 'Yes.', 'No.'
 ];
- 
+
 const micBtn      = document.getElementById('mic-btn');
 const speechText  = document.getElementById('speech-text');
 const signVideo   = document.getElementById('sign-video');
@@ -270,20 +235,9 @@ const ctx         = canvasEl.getContext('2d');
 const switchBtn   = document.getElementById('switch-btn');
 const handsCount  = document.getElementById('hands-count');
 const recStatus   = document.getElementById('rec-status');
-const clearBtn  = document.getElementById('clear-btn');
-const replayBtn = document.getElementById('replay-btn');
+const clearBtn    = document.getElementById('clear-btn');
+const replayBtn   = document.getElementById('replay-btn');
 
-function clearSpeech() {
-  speechText.textContent = 'Press the mic and speak...';
-  speechText.className = 'ph';
-  signVideo.style.display = 'none';
-  signVideo.src = '';
-  videoPh.style.display = 'flex';
-  clearBtn.style.display = 'none';
-  replayBtn.style.display = 'none';
-  statusBar.textContent = 'Cleared — ready to speak';
-}
- 
 let currentMode = 'a';
 let knnData = {};
 let isRecording = false;
@@ -297,21 +251,32 @@ let stableCount = 0;
 let detecting = true;
 const K = 5;
 const STABLE_NEEDED = 30;
- 
-document.addEventListener('click', () => {
-  const u = new SpeechSynthesisUtterance('');
+
+function clearSpeech() {
+  speechText.textContent = 'Press the mic and speak...';
+  speechText.className = 'ph';
+  signVideo.style.display = 'none';
+  signVideo.src = '';
+  videoPh.style.display = 'flex';
+  clearBtn.style.display = 'none';
+  replayBtn.style.display = 'none';
+  statusBar.textContent = 'Cleared — ready to speak';
+}
+
+document.addEventListener('click', function() {
+  var u = new SpeechSynthesisUtterance('');
   window.speechSynthesis.speak(u);
 }, { once: true });
- 
-switchBtn.addEventListener('click', () => {
+
+switchBtn.addEventListener('click', function() {
   currentMode = currentMode === 'a' ? 'b' : 'a';
-  const isA = currentMode === 'a';
+  var isA = currentMode === 'a';
   document.getElementById('mode-a-left').style.display  = isA ? 'block' : 'none';
   document.getElementById('mode-b-left').style.display  = isA ? 'none'  : 'block';
   document.getElementById('mode-a-right').style.display = isA ? 'block' : 'none';
   document.getElementById('mode-b-right').style.display = isA ? 'none'  : 'block';
-  const ll = document.getElementById('label-left');
-  const lr = document.getElementById('label-right');
+  var ll = document.getElementById('label-left');
+  var lr = document.getElementById('label-right');
   if (isA) {
     ll.textContent = '🎤 You speak';        ll.className = 'mode-label blue';
     lr.textContent = '🤟 Sign video plays';  lr.className = 'mode-label green';
@@ -319,19 +284,20 @@ switchBtn.addEventListener('click', () => {
   } else {
     ll.textContent = '🤟 You sign';          ll.className = 'mode-label green';
     lr.textContent = '💬 Text appears here'; lr.className = 'mode-label blue';
-    const total = Object.values(knnData).reduce((s, v) => s + v.length, 0);
+    var total = Object.values(knnData).reduce(function(s,v){ return s+v.length; }, 0);
     statusBar.textContent = total > 0 ? 'Mode: Sign to Speech | ' + total + ' samples loaded' : 'Mode: Sign to Speech | Open Setup to record signs first';
   }
 });
- 
-setupToggle.addEventListener('click', () => {
+
+setupToggle.addEventListener('click', function() {
   recordSetup.style.display = recordSetup.style.display === 'block' ? 'none' : 'block';
 });
- 
-const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+// Speech Recognition — creates new instance every tap to fix Safari bug
+var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
 if (SR) {
-  let rec = null;
-  let isListening = false;
+  var rec = null;
+  var isListening = false;
 
   function resetMic() {
     isListening = false;
@@ -342,13 +308,12 @@ if (SR) {
   function createRec() {
     rec = new SR();
     rec.lang = 'en-US'; rec.interimResults = false; rec.continuous = false;
-
-    rec.onresult = (e) => {
-      const said = e.results[0][0].transcript.toLowerCase().trim();
+    rec.onresult = function(e) {
+      var said = e.results[0][0].transcript.toLowerCase().trim();
       speechText.textContent = '"' + e.results[0][0].transcript + '"';
       resetMic();
-      let matched = false;
-      for (let key in phraseMap) {
+      var matched = false;
+      for (var key in phraseMap) {
         if (said.includes(key)) {
           videoPh.style.display = 'none';
           signVideo.style.display = 'block';
@@ -360,18 +325,19 @@ if (SR) {
       }
       if (!matched) statusBar.textContent = 'Not recognized. Try again.';
     };
-
-    rec.onerror = (e) => {
+    rec.onerror = function(e) {
       statusBar.textContent = 'Mic error: ' + e.error + ' — tap mic to try again';
       resetMic();
     };
-
     rec.onend = resetMic;
   }
 
-  createRec();
+  // Request mic permission on load
+  navigator.mediaDevices.getUserMedia({ audio: true })
+    .then(function() { createRec(); statusBar.textContent = 'Ready'; })
+    .catch(function(e) { micBtn.disabled = true; statusBar.textContent = 'Mic permission denied'; });
 
-  micBtn.addEventListener('click', () => {
+  micBtn.addEventListener('click', function() {
     if (isListening) { rec.stop(); resetMic(); return; }
     createRec();
     setTimeout(function() {
@@ -387,24 +353,23 @@ if (SR) {
       }
     }, 300);
   });
-
 } else {
   micBtn.disabled = true; statusBar.textContent = 'Use Chrome for speech recognition';
 }
- 
+
 function flattenBothHands(lms) {
-  const empty = new Array(42).fill(0);
-  const h0 = lms[0] ? lms[0].flatMap(function(p){ return [p.x, p.y]; }) : empty;
-  const h1 = lms[1] ? lms[1].flatMap(function(p){ return [p.x, p.y]; }) : empty;
+  var empty = new Array(42).fill(0);
+  var h0 = lms[0] ? lms[0].flatMap(function(p){ return [p.x, p.y]; }) : empty;
+  var h1 = lms[1] ? lms[1].flatMap(function(p){ return [p.x, p.y]; }) : empty;
   return h0.concat(h1);
 }
- 
+
 function euclidean(a, b) {
   var s = 0;
   for (var i = 0; i < a.length; i++) s += (a[i]-b[i])*(a[i]-b[i]);
   return Math.sqrt(s);
 }
- 
+
 function knnPredict(query) {
   var neighbors = [];
   for (var label in knnData) {
@@ -422,13 +387,13 @@ function knnPredict(query) {
   var winner = Object.entries(votes).sort(function(a,b){ return b[1]-a[1]; })[0];
   return { label: winner[0], votes: winner[1], confidence: winner[1]/K, bestDist: topK[0].dist };
 }
- 
+
 function updateCount(idx) {
   var label = LABELS[idx];
   var n = knnData[label] ? knnData[label].length : 0;
   document.getElementById('count-' + idx).textContent = n + ' samples';
 }
- 
+
 function startRecording(label, idx) {
   if (isRecording) return;
   isRecording = true; recBuffer = [];
@@ -437,9 +402,8 @@ function startRecording(label, idx) {
   var timerFill = document.getElementById('timer-fill-' + idx);
   btn.classList.add('recording'); btn.textContent = 'Recording...';
   timerEl.style.display = 'block';
-  recStatus.textContent = 'Recording "' + label + '" — hold sign steady for 5 seconds...';
-  statusBar.textContent = 'Recording "' + label + '"...';
-  var DURATION = 5000;
+  recStatus.textContent = 'Recording "' + label + '" — hold sign steady for 10 seconds...';
+  var DURATION = 10000;
   var start = Date.now();
   recInterval = setInterval(function() {
     timerFill.style.width = Math.min(100, ((Date.now()-start)/DURATION)*100) + '%';
@@ -460,7 +424,7 @@ function startRecording(label, idx) {
     updateCount(idx);
   }, DURATION);
 }
- 
+
 function saveTemplates() {
   var keys = Object.keys(knnData);
   if (keys.length === 0) { recStatus.textContent = 'Nothing recorded yet'; return; }
@@ -468,7 +432,7 @@ function saveTemplates() {
   localStorage.setItem('signbuddy_knn', JSON.stringify(knnData));
   recStatus.textContent = 'Saved ' + total + ' samples across ' + keys.length + ' signs';
 }
- 
+
 function loadTemplates() {
   var saved = localStorage.getItem('signbuddy_knn');
   if (saved) {
@@ -482,12 +446,12 @@ function loadTemplates() {
     });
     var total = Object.values(knnData).reduce(function(s,v){ return s+v.length; }, 0);
     recStatus.textContent = 'Loaded ' + total + ' samples';
-    statusBar.textContent = 'Templates ready (' + total + ' samples) — switch to Sign mode';
+    statusBar.textContent = 'Templates ready (' + total + ' samples)';
   } else {
     recStatus.textContent = 'No saved data — record signs first';
   }
 }
- 
+
 function exportTemplates() {
   var total = Object.values(knnData).reduce(function(s,v){ return s+v.length; }, 0);
   if (total === 0) { recStatus.textContent = 'Nothing to export'; return; }
@@ -498,17 +462,17 @@ function exportTemplates() {
   a.click();
   recStatus.textContent = 'Exported ' + total + ' samples — upload to GitHub';
 }
- 
+
 function deleteLabel(label, idx) {
-  if (!knnData[label] || knnData[label].length === 0) { recStatus.textContent = "\"" + label + "\" has no samples"; return; }
-  if (!confirm("Delete all samples for \"" + label + "\"?")) return;
+  if (!knnData[label] || knnData[label].length === 0) { recStatus.textContent = label + ' has no samples'; return; }
+  if (!confirm('Delete all samples for ' + label + '?')) return;
   delete knnData[label];
-  var btn = document.getElementById("rec-" + idx);
-  btn.classList.remove("done"); btn.textContent = "Record";
-  document.getElementById("count-" + idx).textContent = "0 samples";
-  recStatus.textContent = "Deleted samples for \"" + label + "\""; 
+  var btn = document.getElementById('rec-' + idx);
+  btn.classList.remove('done'); btn.textContent = 'Record';
+  document.getElementById('count-' + idx).textContent = '0 samples';
+  recStatus.textContent = 'Deleted samples for ' + label;
 }
- 
+
 function clearTemplates() {
   if (!confirm('Clear all recorded samples?')) return;
   knnData = {};
@@ -520,7 +484,7 @@ function clearTemplates() {
   });
   recStatus.textContent = 'Cleared all samples';
 }
- 
+
 function clearResult() {
   signText.textContent = 'Waiting for sign...';
   signText.className = 'ph';
@@ -529,9 +493,10 @@ function clearResult() {
   window.speechSynthesis.cancel();
   statusBar.textContent = 'Cleared — show your next sign';
 }
- 
+
+// Load templates from GitHub, fallback to localStorage
 fetch('https://psuchanarth-cpu.github.io/signbuddy/signbuddy-templates.json')
-  .then(function(r){ return r.json(); })
+  .then(function(r) { return r.json(); })
   .then(function(data) {
     knnData = data;
     LABELS.forEach(function(l, i) {
@@ -543,11 +508,9 @@ fetch('https://psuchanarth-cpu.github.io/signbuddy/signbuddy-templates.json')
     });
     var total = Object.values(knnData).reduce(function(s,v){ return s+v.length; }, 0);
     statusBar.textContent = 'Templates loaded (' + total + ' samples) — ready';
-  }).catch(function(e){ 
-  alert('fetch error: ' + e);
-  });
+  })
+  .catch(function() { loadTemplates(); });
 
- 
 function onHandResults(results) {
   canvasEl.width  = webcamEl.videoWidth  || 640;
   canvasEl.height = webcamEl.videoHeight || 480;
@@ -586,11 +549,11 @@ function onHandResults(results) {
     }
   } else { stableLabel = ''; stableCount = 0; }
 }
- 
+
 var hands = new Hands({ locateFile: function(f){ return 'https://cdn.jsdelivr.net/npm/@mediapipe/hands/' + f; } });
 hands.setOptions({ maxNumHands: 2, modelComplexity: 1, minDetectionConfidence: 0.7, minTrackingConfidence: 0.5 });
 hands.onResults(onHandResults);
- 
+
 var camera = new Camera(webcamEl, {
   onFrame: async function(){ await hands.send({ image: webcamEl }); },
   width: 640, height: 480
