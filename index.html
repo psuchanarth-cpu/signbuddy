@@ -493,10 +493,8 @@ fetch('https://psuchanarth-cpu.github.io/signbuddy/signbuddy-templates.json')
     });
     var total = Object.values(knnData).reduce(function(s,v){ return s+v.length; }, 0);
     statusBar.textContent = 'Templates loaded (' + total + ' samples) — ready';
-  })
-  .catch(function(e){ 
-  statusBar.textContent = 'fetch failed: ' + e;
-  loadTemplates(); 
+  }).catch(function(e){ 
+  alert('fetch error: ' + e);
   });
 
  
